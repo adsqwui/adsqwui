@@ -8,6 +8,7 @@
   <a href="https://me-l.co/sy5vuawa"><code>me-l.co</code></a>&nbsp;
   <a href="https://www.linkedin.com/in/bogdan-lazarev-a77998443"><code>linkedin</code></a>
   &nbsp;·&nbsp;
+  <a href="https://github.com/adsqwui/wordfreq"><code>wordfreq</code></a>&nbsp;
   <a href="https://github.com/adsqwui/reshis-avia"><code>reshis-avia</code></a>&nbsp;
   <a href="https://github.com/TheAweny/case-14-ai-presentation-designer-team-41"><code>case-14</code></a>
 </p>
