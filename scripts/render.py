@@ -1,4 +1,8 @@
-"""Render assets/profile.svg: one terminal-style panel with live GitHub numbers.
+"""Render assets/profile.svg and README.md from live GitHub data.
+
+Nothing about the profile is hardcoded: name, bio, company, location, status,
+social links, languages, tools, projects and all numbers come from the API.
+Change them on GitHub and the next run picks them up.
 
 Stdlib only, so it runs as-is in GitHub Actions.
 Needs GITHUB_TOKEN in the environment (any token that can read public data).
@@ -8,13 +12,18 @@ Needs GITHUB_TOKEN in the environment (any token that can read public data).
 import base64
 import json
 import os
+import re
 import urllib.request
+from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 from xml.sax.saxutils import escape
 from zoneinfo import ZoneInfo
 
 LOGIN = "adsqwui"
+SKIP_REPOS = {f"{LOGIN}/{LOGIN}", f"{LOGIN}/achievements-sandbox"}
+MAX_PROJECTS = 4
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 
@@ -33,25 +42,17 @@ FS = 13
 ADV = FS * 0.6  # JetBrains Mono advance
 
 I = {  # Nerd Font icons
-    "server": "", "go": "", "db": "", "robot": "\U000f06a9",
-    "org": "", "dot": "", "repo": "", "pin": "",
+    "server": "", "code": "", "tools": "", "org": "",
+    "pulse": "", "dot": "", "repo": "", "pin": "",
 }
 
-PROFILE = [
-    (I["server"], "role", [("Backend developer", WHITE)]),
-    (I["go"], "lang", [("Go", WHITE), (" · ", DIM), ("TypeScript", WHITE), (" · ", DIM), ("Python", WHITE)]),
-    (I["db"], "stack", [("PostgreSQL", WHITE), (" · ", DIM), ("Docker", WHITE), (" · ", DIM), ("Linux", WHITE)]),
-    (I["robot"], "ai", [("Claude API", WHITE), (" · ", DIM), ("MCP servers", WHITE)]),
-    (I["org"], "company", [("Ion Workshop", WHITE)]),
-    (I["dot"], "status", [("open to collaboration", GREEN)]),
-]
-
-PROJECTS = [
-    ("reshis-avia", "Airline ticket sales forecasting service", "«Reshis» tournament, dev track", "TypeScript"),
-    ("case-14", "AI presentation designer", "LCT 2026 hackathon, VK Tech case", "TypeScript · Python"),
-    ("hilari", "Autonomous production task system", "contributor", "TypeScript · PostgreSQL"),
-    ("clawdy", "Personal AI assistant built on Claude", "pet project", "Claude API"),
-]
+# markup/styles are not what people mean by "languages"
+NOT_LANGS = {"CSS", "SCSS", "Sass", "Less", "HTML", "MDX", "Markdown", "Dockerfile",
+             "PLpgSQL", "PLSQL", "TSQL", "Shell", "Makefile", "HCL", "Nix", "Jupyter Notebook",
+             "Procfile", "Batchfile", "PowerShell", "Smarty", "Jinja", "Handlebars", "Vue", "Svelte"}
+TOOLS = {"Dockerfile": "Docker", "PLpgSQL": "PostgreSQL", "TSQL": "SQL Server", "PLSQL": "Oracle",
+         "Shell": "Shell", "HCL": "Terraform", "Makefile": "Make", "Nix": "Nix",
+         "Jupyter Notebook": "Jupyter", "PowerShell": "PowerShell", "Vue": "Vue", "Svelte": "Svelte"}
 
 
 # ---------------------------------------------------------------- data
@@ -70,18 +71,30 @@ def gql(query, **variables):
     return body["data"]["user"]
 
 
+REPO_FIELDS = """nameWithOwner url description pushedAt isFork
+  owner{login}
+  languages(first:10, orderBy:{field:SIZE, direction:DESC}){edges{size node{name}}}"""
+
+
 def fetch():
-    base = gql("""query($login:String!){user(login:$login){
-        createdAt
-        merged: pullRequests(states:MERGED){totalCount}
-        contributionsCollection{
+    user = gql(f"""query($login:String!){{user(login:$login){{
+        login name bio company location createdAt
+        status{{message}}
+        socialAccounts(first:10){{nodes{{provider displayName url}}}}
+        merged: pullRequests(states:MERGED){{totalCount}}
+        contributionsCollection{{
           totalCommitContributions
-          contributionCalendar{totalContributions
-            weeks{contributionDays{date contributionCount weekday}}}}
-    }}""", login=LOGIN)
+          contributionCalendar{{totalContributions
+            weeks{{contributionDays{{date contributionCount weekday}}}}}}}}
+        pinnedItems(first:6, types:REPOSITORY){{nodes{{... on Repository{{ {REPO_FIELDS} }}}}}}
+        repositories(first:50, ownerAffiliations:OWNER, privacy:PUBLIC, isFork:false,
+                     orderBy:{{field:PUSHED_AT, direction:DESC}}){{nodes{{ {REPO_FIELDS} }}}}
+        repositoriesContributedTo(first:50, privacy:PUBLIC, includeUserRepositories:false,
+                     contributionTypes:[COMMIT, PULL_REQUEST, REPOSITORY]){{nodes{{ {REPO_FIELDS} }}}}
+    }}}}""", login=LOGIN)
 
     # whole history for streaks, one year per request (API limit)
-    created = datetime.fromisoformat(base["createdAt"].replace("Z", "+00:00"))
+    created = datetime.fromisoformat(user["createdAt"].replace("Z", "+00:00"))
     now = datetime.now(timezone.utc)
     days = {}
     start = created
@@ -95,7 +108,7 @@ def fetch():
             for d in w["contributionDays"]:
                 days[d["date"]] = d["contributionCount"]
         start = end
-    return base, days
+    return user, days
 
 
 def streaks(days):
@@ -113,6 +126,87 @@ def streaks(days):
         cur += 1
         d -= timedelta(days=1)
     return cur, best
+
+
+def all_repos(user):
+    seen, out = set(), []
+    for r in user["repositories"]["nodes"] + user["repositoriesContributedTo"]["nodes"]:
+        if r["nameWithOwner"] in seen or r["nameWithOwner"] in SKIP_REPOS or r["isFork"]:
+            continue
+        seen.add(r["nameWithOwner"])
+        out.append(r)
+    return out
+
+
+def projects(user):
+    pinned = [r for r in user["pinnedItems"]["nodes"] if r]
+    if pinned:
+        return pinned[:MAX_PROJECTS]
+    repos = sorted(all_repos(user), key=lambda r: r["pushedAt"], reverse=True)
+    return repos[:MAX_PROJECTS]
+
+
+def languages(repos):
+    """Each repo gets one vote, split by its language sizes."""
+    langs, tools = defaultdict(float), defaultdict(float)
+    for r in repos:
+        edges = r["languages"]["edges"]
+        total = sum(e["size"] for e in edges) or 1
+        for e in edges:
+            name, share = e["node"]["name"], e["size"] / total
+            if name in TOOLS:
+                tools[TOOLS[name]] += 1 + share
+            if name not in NOT_LANGS:
+                langs[name] += share
+    top = lambda d, n: [k for k, _ in sorted(d.items(), key=lambda kv: -kv[1])[:n]]
+    return top(langs, 3), top(tools, 3)
+
+
+def split_bio(bio):
+    """'Backend developer (Golang), open to collaboration' -> role, status."""
+    if not bio:
+        return None, None
+    parts = [p.strip() for p in re.split(r"[,;|·•]", bio, maxsplit=1)]
+    return parts[0], (parts[1] if len(parts) > 1 and parts[1] else None)
+
+
+def ago(iso):
+    days = (datetime.now(timezone.utc) - datetime.fromisoformat(iso.replace("Z", "+00:00"))).days
+    if days == 0:
+        return "today"
+    if days < 31:
+        return f"{days}d ago"
+    if days < 365:
+        return f"{days // 30}mo ago"
+    return f"{days // 365}y ago"
+
+
+def first_sentence(text):
+    if not text:
+        return ""
+    return re.split(r"(?<=[.!?])\s", text.strip(), maxsplit=1)[0].rstrip(".")
+
+
+def short_name(repo):
+    """case-14-ai-presentation-designer-team-41 -> case-14"""
+    name = repo["nameWithOwner"].split("/")[1]
+    return name if len(name) <= 14 else "-".join(name.split("-")[:2])[:14]
+
+
+def clip(text, n):
+    return text if len(text) <= n else text[:n - 1].rstrip() + "…"
+
+
+def link_label(acc):
+    if acc["provider"] != "GENERIC":
+        return acc["provider"].lower()
+    host = urlparse(acc["url"]).netloc.removeprefix("www.")
+    return {"t.me": "telegram", "telegram.me": "telegram"}.get(host, host)
+
+
+def short_url(url):
+    u = urlparse(url)
+    return (u.netloc.removeprefix("www.") + u.path).rstrip("/")
 
 
 # ---------------------------------------------------------------- svg bits
@@ -148,40 +242,74 @@ def heading(y, label, note, delay):
     return t(PAD, y, parts, delay)
 
 
+def dotted(items):
+    out = []
+    for i, s in enumerate(items):
+        if i:
+            out.append((" · ", DIM))
+        out.append((s, WHITE))
+    return out
+
+
 # ---------------------------------------------------------------- panel
 
-def render(base, days):
-    cc = base["contributionsCollection"]
+def render(user, days, projs):
+    cc = user["contributionsCollection"]
     cal = cc["contributionCalendar"]
     cur, best = streaks(days)
     msk = datetime.now(ZoneInfo("Europe/Moscow"))
+    langs, tools = languages(all_repos(user))
+    role, status = split_bio(user["bio"])
     body = []
+
+    profile = []
+    if role:
+        profile.append((I["server"], "role", [(role, WHITE)]))
+    if langs:
+        profile.append((I["code"], "lang", dotted(langs)))
+    if tools:
+        profile.append((I["tools"], "tools", dotted(tools)))
+    if user["company"]:
+        profile.append((I["org"], "company", [(user["company"].lstrip("@"), WHITE)]))
+    if user["status"] and user["status"]["message"]:
+        profile.append((I["pulse"], "now", [(user["status"]["message"], WHITE)]))
+    if status:
+        profile.append((I["dot"], "status", [(status, GREEN)]))
 
     # --- header: Saturn + who
     logo = (ASSETS / "logo.txt").read_text().rstrip("\n").split("\n")
     logo_lh = 16.5
     logo_cols = max(len(l) for l in logo)
     rx = PAD + logo_cols * ADV + 36
+    right_cols = int((W - PAD - rx) / ADV)
     top = PAD + 6
     for i, line in enumerate(logo):
         body.append(t(PAD, top + 8 + i * logo_lh, [(line, CYAN, True)], 0.1 + i * 0.04))
 
+    name = user["name"] or user["login"]
     name_y = top + 26
-    body.append(t(rx, name_y, [("whyme", WHITE, True)], 0.3, size=30))
-    body.append(f'<rect class="cur" x="{rx + 5 * 18 + 6:.1f}" y="{name_y - 24:.1f}" width="14" height="28" fill="{CYAN}"/>')
-    body.append(t(rx, name_y + 24, [("@adsqwui", CYAN), ("  ", DIM), (I["pin"] + " Moscow", DIM)], 0.4))
-    rule_cols = int((W - PAD - rx) / ADV)
-    body.append(t(rx, name_y + 46, [("─" * rule_cols, FAINT)], 0.45))
-    for i, (icon, key, value) in enumerate(PROFILE):
+    body.append(t(rx, name_y, [(name, WHITE, True)], 0.3, size=30))
+    body.append(f'<rect class="cur" x="{rx + len(name) * 18 + 6:.1f}" y="{name_y - 24:.1f}" width="14" height="28" fill="{CYAN}"/>')
+    sub = [("@" + user["login"], CYAN)]
+    if user["location"]:
+        sub += [("  ", DIM), (I["pin"] + " " + user["location"], DIM)]
+    body.append(t(rx, name_y + 24, sub, 0.4))
+    body.append(t(rx, name_y + 46, [("─" * right_cols, FAINT)], 0.45))
+    for i, (icon, key, value) in enumerate(profile):
+        room = right_cols - 12
+        if len(value) == 1:
+            value = [(clip(value[0][0], room), value[0][1])]
+        while len(value) > 1 and sum(len(p[0]) for p in value) > room:
+            value = value[:-2]  # drop the last " · item"
         body.append(t(rx, name_y + 74 + i * 23, [(icon + "  ", CYAN), (f"{key:<9}", CYAN)] + value, 0.5 + i * 0.06))
 
     # --- numbers
-    y = top + max(len(logo) * logo_lh, 74 + len(PROFILE) * 23 + 4) + 34
-    body.append(heading(y, "github", f"since {datetime.fromisoformat(base['createdAt'][:10]):%b %Y}".lower(), 0.9))
+    y = top + max(len(logo) * logo_lh, 74 + len(profile) * 23 + 4) + 34
+    body.append(heading(y, "github", f"since {datetime.fromisoformat(user['createdAt'][:10]):%b %Y}".lower(), 0.9))
     stats = [
         (f"{cc['totalCommitContributions']}", "commits / year"),
         (f"{cal['totalContributions']}", "contributions"),
-        (f"{base['merged']['totalCount']}", "PRs merged"),
+        (f"{user['merged']['totalCount']}", "PRs merged"),
         (f"{cur}d", f"streak · best {best}d"),
     ]
     col = (W - 2 * PAD) / len(stats)
@@ -204,8 +332,7 @@ def render(base, days):
 
     ramp = ["·", "░", "▒", "▓", "█"]
     cell_w, cell_h, cell_fs = 14.5, 15.5, 10
-    label_w = 4 * ADV
-    gx = PAD + label_w + 4
+    gx = PAD + 4 * ADV + 4
     gy = y + 38
     last = None
     for wi, w in enumerate(weeks):
@@ -213,8 +340,8 @@ def render(base, days):
         if m != last and wi < len(weeks) - 2:
             body.append(t(gx + wi * cell_w, gy - 4, [(m, DIM)], 1.35))
             last = m
-    for r, name in ((1, "mon"), (3, "wed"), (5, "fri")):
-        body.append(t(PAD, gy + (r + 1) * cell_h, [(name, DIM)], 1.35))
+    for r, day in ((1, "mon"), (3, "wed"), (5, "fri")):
+        body.append(t(PAD, gy + (r + 1) * cell_h, [(day, DIM)], 1.35))
     for wi, w in enumerate(weeks):
         delay = 1.4 + wi * 0.012
         for d in w["contributionDays"]:
@@ -230,24 +357,35 @@ def render(base, days):
 
     # --- projects
     y = ly + 40
-    body.append(heading(y, "projects", "selected", 2.2))
+    body.append(heading(y, "projects", "pinned" if user["pinnedItems"]["nodes"] else "recent", 2.2))
     y += 34
-    for i, (name, what, where, stack) in enumerate(PROJECTS):
+    total_cols = int((W - 2 * PAD) / ADV)
+    for i, r in enumerate(projs):
         d = 2.3 + i * 0.08
-        body.append(t(PAD, y, [(I["repo"] + "  ", CYAN), (f"{name:<14}", CYAN, True), (what, WHITE)], d))
-        body.append(t(W - PAD, y, [(stack, YELLOW)], d, anchor="end"))
+        owner = r["owner"]["login"]
+        stack = " · ".join(e["node"]["name"] for e in r["languages"]["edges"]
+                           if e["node"]["name"] not in NOT_LANGS)
+        stack = " · ".join(stack.split(" · ")[:2])
+        what = clip(first_sentence(r["description"]) or "—", total_cols - 17 - len(stack) - 3)
+        where = ("own" if owner == user["login"] else f"contributor · {owner}") + f" · pushed {ago(r['pushedAt'])}"
+        body.append(t(PAD, y, [(I["repo"] + "  ", CYAN), (f"{short_name(r):<14}", CYAN, True), (what, WHITE)], d))
+        if stack:
+            body.append(t(W - PAD, y, [(stack, YELLOW)], d, anchor="end"))
         body.append(t(PAD + 17 * ADV, y + 19, [(where, DIM)], d))
         y += 48
 
     # --- footer
     y += 4
-    body.append(t(PAD, y, [("─" * int((W - 2 * PAD) / ADV), FAINT)], 2.7))
-    body.append(t(PAD, y + 24, [("t.me/HeartedWhyMe", DIM)], 2.75))
+    body.append(t(PAD, y, [("─" * total_cols, FAINT)], 2.7))
+    socials = user["socialAccounts"]["nodes"]
+    if socials:
+        body.append(t(PAD, y + 24, [(short_url(socials[0]["url"]), DIM)], 2.75))
     body.append(t(W - PAD, y + 24, [(f"updated {msk:%Y-%m-%d %H:%M} msk", DIM)], 2.75, anchor="end"))
     height = round(y + 24 + PAD)
 
+    title = escape(f"{name}: {user['bio'] or ''}".strip(": "))
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{height}" viewBox="0 0 {W} {height}">
-<title>whyme: backend developer (Go), Moscow</title>
+<title>{title}</title>
 <style>{font_face()}
 text{{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:{FS}px;white-space:pre}}
 .ln{{opacity:0;animation:in .35s ease-out forwards}}
@@ -262,10 +400,31 @@ text{{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:{FS}px;w
 """
 
 
+def readme(user, projs):
+    def a(url, label):
+        return f'<a href="{escape(url)}"><code>{escape(label)}</code></a>'
+    socials = "&nbsp;\n  ".join(a(s["url"], link_label(s)) for s in user["socialAccounts"]["nodes"])
+    repos = "&nbsp;\n  ".join(a(r["url"], short_name(r)) for r in projs)
+    sep = "\n  &nbsp;·&nbsp;\n  " if socials and repos else ""
+    alt = escape(f"{user['name'] or user['login']}: {user['bio'] or ''}. "
+                 "Live GitHub stats, contribution heatmap and projects.", {'"': "&quot;"})
+    return f"""<!-- generated by scripts/render.py, edits here get overwritten -->
+<p align="center">
+  <img src="assets/profile.svg" width="100%" alt="{alt}">
+</p>
+
+<p align="center">
+  {socials}{sep}{repos}
+</p>
+"""
+
+
 def main():
-    base, days = fetch()
-    (ASSETS / "profile.svg").write_text(render(base, days))
-    print("ok")
+    user, days = fetch()
+    projs = projects(user)
+    (ASSETS / "profile.svg").write_text(render(user, days, projs))
+    (ROOT / "README.md").write_text(readme(user, projs))
+    print("ok", [r["nameWithOwner"] for r in projs], languages(all_repos(user)))
 
 
 if __name__ == "__main__":

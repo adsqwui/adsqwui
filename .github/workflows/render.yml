@@ -2,11 +2,11 @@ name: render profile
 
 on:
   schedule:
-    - cron: "17 3 * * *"   # once a day
+    - cron: "17 3,15 * * *"   # twice a day: 06:17 and 18:17 MSK
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/**", "assets/logo.txt", "assets/fonts/**"]
+    paths: ["scripts/**", "assets/logo.txt", "assets/fonts/**", ".github/workflows/**"]
 
 permissions:
   contents: write
@@ -25,8 +25,8 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/profile.svg
+          git add assets/profile.svg README.md
           if ! git diff --cached --quiet; then
-            git commit -m "chore: refresh profile stats"
+            git commit -m "chore: refresh profile"
             git push
           fi
