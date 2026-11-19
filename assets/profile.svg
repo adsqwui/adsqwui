@@ -34,15 +34,15 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="549.6" y="228.0" class="ln" style="animation-delay:0.74s"><tspan fill="#2bd2e3">  </tspan><tspan fill="#2bd2e3">company  </tspan><tspan fill="#e6e6e6">Ion Workshop</tspan></text>
 <text x="549.6" y="251.0" class="ln" style="animation-delay:0.80s"><tspan fill="#2bd2e3">  </tspan><tspan fill="#2bd2e3">status   </tspan><tspan fill="#7fd88f">open to collaboration</tspan></text>
 <text x="30.0" y="301.0" class="ln" style="animation-delay:0.90s"><tspan fill="#2bd2e3" font-weight="700">github</tspan><tspan fill="#3a3d44"> ─────────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> since jun 2026</tspan></text>
-<text x="30.0" y="343.0" class="ln" style="animation-delay:1.00s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">81</tspan></text>
+<text x="30.0" y="343.0" class="ln" style="animation-delay:1.00s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">63</tspan></text>
 <text x="30.0" y="363.0" class="ln" style="animation-delay:1.05s"><tspan fill="#8b8f98">commits / year</tspan></text>
-<text x="247.5" y="343.0" class="ln" style="animation-delay:1.06s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">99</tspan></text>
+<text x="247.5" y="343.0" class="ln" style="animation-delay:1.06s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">76</tspan></text>
 <text x="247.5" y="363.0" class="ln" style="animation-delay:1.11s"><tspan fill="#8b8f98">contributions</tspan></text>
 <line x1="231.5" x2="231.5" y1="323.0" y2="367.0" stroke="#3a3d44"/>
-<text x="465.0" y="343.0" class="ln" style="animation-delay:1.12s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">13</tspan></text>
+<text x="465.0" y="343.0" class="ln" style="animation-delay:1.12s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">7</tspan></text>
 <text x="465.0" y="363.0" class="ln" style="animation-delay:1.17s"><tspan fill="#8b8f98">PRs merged</tspan></text>
 <line x1="449.0" x2="449.0" y1="323.0" y2="367.0" stroke="#3a3d44"/>
-<text x="682.5" y="343.0" class="ln" style="animation-delay:1.18s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">2d</tspan></text>
+<text x="682.5" y="343.0" class="ln" style="animation-delay:1.18s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">1d</tspan></text>
 <text x="682.5" y="363.0" class="ln" style="animation-delay:1.23s"><tspan fill="#8b8f98">streak · best 2d</tspan></text>
 <line x1="666.5" x2="666.5" y1="323.0" y2="367.0" stroke="#3a3d44"/>
 <text x="30.0" y="409.0" class="ln" style="animation-delay:1.30s"><tspan fill="#2bd2e3" font-weight="700">activity</tspan><tspan fill="#3a3d44"> ───────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> last 12 months</tspan></text>
@@ -273,7 +273,7 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="485.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="485.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="500.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
-<text x="500.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:1.76s">░░</text>
+<text x="500.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:1.76s">▒▒</text>
 <text x="500.2" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
 <text x="500.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
 <text x="500.2" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
@@ -399,7 +399,7 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="746.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="746.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="761.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
-<text x="761.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:1.98s">▒▒</text>
+<text x="761.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:1.98s">▓▓</text>
 <text x="761.2" y="493.5" class="ln" fill="#2bd2e3" fill-opacity="1" style="font-size:10px;animation-delay:1.98s">██</text>
 <text x="761.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
 <text x="761.2" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
@@ -429,7 +429,7 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="819.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
 <text x="819.2" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
 <text x="819.2" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
-<text x="819.2" y="509.0" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:2.02s">▓▓</text>
+<text x="819.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
 <text x="819.2" y="524.5" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:2.02s">▓▓</text>
 <text x="900.0" y="581.5" class="ln" text-anchor="end" style="animation-delay:2.10s"><tspan fill="#8b8f98">less </tspan><tspan fill="#8b8f98">·</tspan><tspan fill="#2bd2e3"> ░</tspan><tspan fill="#2bd2e3"> ▒</tspan><tspan fill="#2bd2e3"> ▓</tspan><tspan fill="#2bd2e3"> █</tspan><tspan fill="#8b8f98"> more</tspan></text>
 <text x="30.0" y="621.5" class="ln" style="animation-delay:2.20s"><tspan fill="#2bd2e3" font-weight="700">projects</tspan><tspan fill="#3a3d44"> ─────────────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> selected</tspan></text>
@@ -447,5 +447,5 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="162.6" y="818.5" class="ln" style="animation-delay:2.54s"><tspan fill="#8b8f98">pet project</tspan></text>
 <text x="30.0" y="851.5" class="ln" style="animation-delay:2.70s"><tspan fill="#3a3d44">───────────────────────────────────────────────────────────────────────────────────────────────────────────────</tspan></text>
 <text x="30.0" y="875.5" class="ln" style="animation-delay:2.75s"><tspan fill="#8b8f98">t.me/HeartedWhyMe</tspan></text>
-<text x="900.0" y="875.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-19 22:39 msk</tspan></text>
+<text x="900.0" y="875.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-19 22:42 msk</tspan></text>
 </svg>
