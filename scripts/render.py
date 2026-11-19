@@ -1,8 +1,7 @@
 """Render assets/profile.svg and README.md from live GitHub data.
 
-Nothing about the profile is hardcoded: name, bio, company, location, status,
-social links, languages, tools, projects and all numbers come from the API.
-Change them on GitHub and the next run picks them up.
+The "about" rows (role, lang, stack, ...) live in PROFILE below. Name, location,
+social links, projects and all numbers come from the API on every run.
 
 Stdlib only, so it runs as-is in GitHub Actions.
 Needs GITHUB_TOKEN in the environment (any token that can read public data).
@@ -43,16 +42,32 @@ ADV = FS * 0.6  # JetBrains Mono advance
 
 I = {  # Nerd Font icons
     "server": "", "code": "", "tools": "", "org": "",
-    "pulse": "", "dot": "", "repo": "", "pin": "",
+    "robot": "\U000f06a9", "dot": "", "repo": "", "pin": "",
 }
+
+def _dotted(*items):
+    out = []
+    for i, x in enumerate(items):
+        if i:
+            out.append((" · ", DIM))
+        out.append((x, WHITE))
+    return out
+
+
+# the "about" rows are written by hand on purpose; everything else is live
+PROFILE = [
+    (I["server"], "role", [("Backend developer", WHITE)]),
+    (I["code"], "lang", _dotted("Go", "TypeScript", "Python")),
+    (I["tools"], "stack", _dotted("PostgreSQL", "Docker", "Linux")),
+    (I["org"], "company", [("Ion Workshop", WHITE)]),
+    (I["robot"], "ai", _dotted("Claude API", "MCP servers")),
+    (I["dot"], "status", [("open to collaboration", GREEN)]),
+]
 
 # markup/styles are not what people mean by "languages"
 NOT_LANGS = {"CSS", "SCSS", "Sass", "Less", "HTML", "MDX", "Markdown", "Dockerfile",
              "PLpgSQL", "PLSQL", "TSQL", "Shell", "Makefile", "HCL", "Nix", "Jupyter Notebook",
              "Procfile", "Batchfile", "PowerShell", "Smarty", "Jinja", "Handlebars", "Vue", "Svelte"}
-TOOLS = {"Dockerfile": "Docker", "PLpgSQL": "PostgreSQL", "TSQL": "SQL Server", "PLSQL": "Oracle",
-         "Shell": "Shell", "HCL": "Terraform", "Makefile": "Make", "Nix": "Nix",
-         "Jupyter Notebook": "Jupyter", "PowerShell": "PowerShell", "Vue": "Vue", "Svelte": "Svelte"}
 
 
 # ---------------------------------------------------------------- data
@@ -146,30 +161,6 @@ def projects(user):
     return repos[:MAX_PROJECTS]
 
 
-def languages(repos):
-    """Each repo gets one vote, split by its language sizes."""
-    langs, tools = defaultdict(float), defaultdict(float)
-    for r in repos:
-        edges = r["languages"]["edges"]
-        total = sum(e["size"] for e in edges) or 1
-        for e in edges:
-            name, share = e["node"]["name"], e["size"] / total
-            if name in TOOLS:
-                tools[TOOLS[name]] += 1 + share
-            if name not in NOT_LANGS:
-                langs[name] += share
-    top = lambda d, n: [k for k, _ in sorted(d.items(), key=lambda kv: -kv[1])[:n]]
-    return top(langs, 3), top(tools, 3)
-
-
-def split_bio(bio):
-    """'Backend developer (Golang), open to collaboration' -> role, status."""
-    if not bio:
-        return None, None
-    parts = [p.strip() for p in re.split(r"[,;|·•]", bio, maxsplit=1)]
-    return parts[0], (parts[1] if len(parts) > 1 and parts[1] else None)
-
-
 def ago(iso):
     days = (datetime.now(timezone.utc) - datetime.fromisoformat(iso.replace("Z", "+00:00"))).days
     if days == 0:
@@ -242,15 +233,6 @@ def heading(y, label, note, delay):
     return t(PAD, y, parts, delay)
 
 
-def dotted(items):
-    out = []
-    for i, s in enumerate(items):
-        if i:
-            out.append((" · ", DIM))
-        out.append((s, WHITE))
-    return out
-
-
 # ---------------------------------------------------------------- panel
 
 def render(user, days, projs):
@@ -258,23 +240,7 @@ def render(user, days, projs):
     cal = cc["contributionCalendar"]
     cur, best = streaks(days)
     msk = datetime.now(ZoneInfo("Europe/Moscow"))
-    langs, tools = languages(all_repos(user))
-    role, status = split_bio(user["bio"])
     body = []
-
-    profile = []
-    if role:
-        profile.append((I["server"], "role", [(role, WHITE)]))
-    if langs:
-        profile.append((I["code"], "lang", dotted(langs)))
-    if tools:
-        profile.append((I["tools"], "tools", dotted(tools)))
-    if user["company"]:
-        profile.append((I["org"], "company", [(user["company"].lstrip("@"), WHITE)]))
-    if user["status"] and user["status"]["message"]:
-        profile.append((I["pulse"], "now", [(user["status"]["message"], WHITE)]))
-    if status:
-        profile.append((I["dot"], "status", [(status, GREEN)]))
 
     # --- header: Saturn + who
     logo = (ASSETS / "logo.txt").read_text().rstrip("\n").split("\n")
@@ -295,7 +261,7 @@ def render(user, days, projs):
         sub += [("  ", DIM), (I["pin"] + " " + user["location"], DIM)]
     body.append(t(rx, name_y + 24, sub, 0.4))
     body.append(t(rx, name_y + 46, [("─" * right_cols, FAINT)], 0.45))
-    for i, (icon, key, value) in enumerate(profile):
+    for i, (icon, key, value) in enumerate(PROFILE):
         room = right_cols - 12
         if len(value) == 1:
             value = [(clip(value[0][0], room), value[0][1])]
@@ -304,7 +270,7 @@ def render(user, days, projs):
         body.append(t(rx, name_y + 74 + i * 23, [(icon + "  ", CYAN), (f"{key:<9}", CYAN)] + value, 0.5 + i * 0.06))
 
     # --- numbers
-    y = top + max(len(logo) * logo_lh, 74 + len(profile) * 23 + 4) + 34
+    y = top + max(len(logo) * logo_lh, 74 + len(PROFILE) * 23 + 4) + 34
     body.append(heading(y, "github", f"since {datetime.fromisoformat(user['createdAt'][:10]):%b %Y}".lower(), 0.9))
     stats = [
         (f"{cc['totalCommitContributions']}", "commits / year"),
@@ -424,7 +390,7 @@ def main():
     projs = projects(user)
     (ASSETS / "profile.svg").write_text(render(user, days, projs))
     (ROOT / "README.md").write_text(readme(user, projs))
-    print("ok", [r["nameWithOwner"] for r in projs], languages(all_repos(user)))
+    print("ok", [r["nameWithOwner"] for r in projs])
 
 
 if __name__ == "__main__":
