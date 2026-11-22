@@ -42,23 +42,23 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="465.0" y="343.0" class="ln" style="animation-delay:1.12s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">2</tspan></text>
 <text x="465.0" y="363.0" class="ln" style="animation-delay:1.17s"><tspan fill="#8b8f98">PRs merged</tspan></text>
 <line x1="449.0" x2="449.0" y1="323.0" y2="367.0" stroke="#3a3d44"/>
-<text x="682.5" y="343.0" class="ln" style="animation-delay:1.18s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">4d</tspan></text>
+<text x="682.5" y="343.0" class="ln" style="animation-delay:1.18s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">0d</tspan></text>
 <text x="682.5" y="363.0" class="ln" style="animation-delay:1.23s"><tspan fill="#8b8f98">streak · best 4d</tspan></text>
 <line x1="666.5" x2="666.5" y1="323.0" y2="367.0" stroke="#3a3d44"/>
 <text x="30.0" y="409.0" class="ln" style="animation-delay:1.30s"><tspan fill="#2bd2e3" font-weight="700">activity</tspan><tspan fill="#3a3d44"> ───────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> last 12 months</tspan></text>
 <text x="65.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">nov</tspan></text>
-<text x="108.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">dec</tspan></text>
-<text x="166.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jan</tspan></text>
-<text x="224.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">feb</tspan></text>
-<text x="282.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">mar</tspan></text>
-<text x="355.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">apr</tspan></text>
-<text x="413.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">may</tspan></text>
-<text x="485.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jun</tspan></text>
-<text x="543.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jul</tspan></text>
-<text x="601.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">aug</tspan></text>
-<text x="674.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">sep</tspan></text>
-<text x="732.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">oct</tspan></text>
-<text x="790.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">nov</tspan></text>
+<text x="94.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">dec</tspan></text>
+<text x="152.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jan</tspan></text>
+<text x="210.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">feb</tspan></text>
+<text x="268.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">mar</tspan></text>
+<text x="340.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">apr</tspan></text>
+<text x="398.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">may</tspan></text>
+<text x="471.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jun</tspan></text>
+<text x="529.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">jul</tspan></text>
+<text x="587.2" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">aug</tspan></text>
+<text x="659.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">sep</tspan></text>
+<text x="717.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">oct</tspan></text>
+<text x="775.7" y="443.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">nov</tspan></text>
 <text x="30.0" y="478.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">mon</tspan></text>
 <text x="30.0" y="509.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">wed</tspan></text>
 <text x="30.0" y="540.0" class="ln" style="animation-delay:1.35s"><tspan fill="#8b8f98">fri</tspan></text>
@@ -266,14 +266,14 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="471.2" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.74s"> ·</text>
 <text x="471.2" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.74s"> ·</text>
 <text x="485.7" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
-<text x="485.7" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
+<text x="485.7" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:1.75s">░░</text>
 <text x="485.7" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="485.7" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="485.7" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="485.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="485.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.75s"> ·</text>
 <text x="500.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
-<text x="500.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:1.76s">░░</text>
+<text x="500.2" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
 <text x="500.2" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
 <text x="500.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
 <text x="500.2" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.76s"> ·</text>
@@ -392,15 +392,15 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="732.2" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.95s"> ·</text>
 <text x="732.2" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.95s"> ·</text>
 <text x="746.7" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
-<text x="746.7" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
-<text x="746.7" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
+<text x="746.7" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:1.96s">▒▒</text>
+<text x="746.7" y="493.5" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:1.96s">▓▓</text>
 <text x="746.7" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="746.7" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="746.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="746.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.96s"> ·</text>
 <text x="761.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
-<text x="761.2" y="478.0" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:1.98s">▒▒</text>
-<text x="761.2" y="493.5" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:1.98s">▓▓</text>
+<text x="761.2" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
+<text x="761.2" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
 <text x="761.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
 <text x="761.2" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
 <text x="761.2" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.98s"> ·</text>
@@ -408,31 +408,25 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="775.7" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
 <text x="775.7" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
 <text x="775.7" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
-<text x="775.7" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
+<text x="775.7" y="509.0" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:1.99s">░░</text>
 <text x="775.7" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
 <text x="775.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
-<text x="775.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:1.99s"> ·</text>
+<text x="775.7" y="555.5" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:1.99s">░░</text>
 <text x="790.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
 <text x="790.2" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
 <text x="790.2" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
-<text x="790.2" y="509.0" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:2.00s">░░</text>
+<text x="790.2" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
 <text x="790.2" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
 <text x="790.2" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
-<text x="790.2" y="555.5" class="ln" fill="#2bd2e3" fill-opacity="0.55" style="font-size:10px;animation-delay:2.00s">░░</text>
+<text x="790.2" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.00s"> ·</text>
 <text x="804.7" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
 <text x="804.7" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
-<text x="804.7" y="493.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
-<text x="804.7" y="509.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
-<text x="804.7" y="524.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
-<text x="804.7" y="540.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
+<text x="804.7" y="493.5" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:2.01s">▒▒</text>
+<text x="804.7" y="509.0" class="ln" fill="#2bd2e3" fill-opacity="1" style="font-size:10px;animation-delay:2.01s">██</text>
+<text x="804.7" y="524.5" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:2.01s">▓▓</text>
+<text x="804.7" y="540.0" class="ln" fill="#2bd2e3" fill-opacity="1" style="font-size:10px;animation-delay:2.01s">██</text>
 <text x="804.7" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.01s"> ·</text>
 <text x="819.2" y="462.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
-<text x="819.2" y="478.0" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
-<text x="819.2" y="493.5" class="ln" fill="#2bd2e3" fill-opacity="0.75" style="font-size:10px;animation-delay:2.02s">▒▒</text>
-<text x="819.2" y="509.0" class="ln" fill="#2bd2e3" fill-opacity="1" style="font-size:10px;animation-delay:2.02s">██</text>
-<text x="819.2" y="524.5" class="ln" fill="#2bd2e3" fill-opacity="0.9" style="font-size:10px;animation-delay:2.02s">▓▓</text>
-<text x="819.2" y="540.0" class="ln" fill="#2bd2e3" fill-opacity="1" style="font-size:10px;animation-delay:2.02s">██</text>
-<text x="819.2" y="555.5" class="ln" fill="#8b8f98" fill-opacity="0.5" style="font-size:10px;animation-delay:2.02s"> ·</text>
 <text x="900.0" y="581.5" class="ln" text-anchor="end" style="animation-delay:2.10s"><tspan fill="#8b8f98">less </tspan><tspan fill="#8b8f98">·</tspan><tspan fill="#2bd2e3"> ░</tspan><tspan fill="#2bd2e3"> ▒</tspan><tspan fill="#2bd2e3"> ▓</tspan><tspan fill="#2bd2e3"> █</tspan><tspan fill="#8b8f98"> more</tspan></text>
 <text x="30.0" y="621.5" class="ln" style="animation-delay:2.20s"><tspan fill="#2bd2e3" font-weight="700">projects</tspan><tspan fill="#3a3d44"> ───────────────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> pinned</tspan></text>
 <text x="30.0" y="655.5" class="ln" style="animation-delay:2.30s"><tspan fill="#2bd2e3">  </tspan><tspan fill="#2bd2e3" font-weight="700">dsh-subscripti</tspan><tspan fill="#e6e6e6">DeepSeek Harness plugin: use local Codex and Claude Code subscripti…</tspan></text>
@@ -443,5 +437,5 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="162.6" y="722.5" class="ln" style="animation-delay:2.38s"><tspan fill="#8b8f98">contributor · TheAweny · pushed 1mo ago</tspan></text>
 <text x="30.0" y="755.5" class="ln" style="animation-delay:2.70s"><tspan fill="#3a3d44">───────────────────────────────────────────────────────────────────────────────────────────────────────────────</tspan></text>
 <text x="30.0" y="779.5" class="ln" style="animation-delay:2.75s"><tspan fill="#8b8f98">t.me/HeartedWhyMe</tspan></text>
-<text x="900.0" y="779.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-21 23:55 msk</tspan></text>
+<text x="900.0" y="779.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-22 04:21 msk</tspan></text>
 </svg>
