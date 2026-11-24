@@ -36,7 +36,7 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="30.0" y="301.0" class="ln" style="animation-delay:0.90s"><tspan fill="#2bd2e3" font-weight="700">github</tspan><tspan fill="#3a3d44"> ─────────────────────────────────────────────────────────────────────────────────────────</tspan><tspan fill="#8b8f98"> since jun 2026</tspan></text>
 <text x="30.0" y="343.0" class="ln" style="animation-delay:1.00s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">133</tspan></text>
 <text x="30.0" y="363.0" class="ln" style="animation-delay:1.05s"><tspan fill="#8b8f98">commits / year</tspan></text>
-<text x="247.5" y="343.0" class="ln" style="animation-delay:1.06s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">218</tspan></text>
+<text x="247.5" y="343.0" class="ln" style="animation-delay:1.06s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">224</tspan></text>
 <text x="247.5" y="363.0" class="ln" style="animation-delay:1.11s"><tspan fill="#8b8f98">contributions</tspan></text>
 <line x1="231.5" x2="231.5" y1="323.0" y2="367.0" stroke="#3a3d44"/>
 <text x="465.0" y="343.0" class="ln" style="animation-delay:1.12s;font-size:26px"><tspan fill="#e6e6e6" font-weight="700">3</tspan></text>
@@ -445,5 +445,5 @@ text{font-family:'JBM',ui-monospace,Menlo,Consolas,monospace;font-size:13px;whit
 <text x="162.6" y="818.5" class="ln" style="animation-delay:2.54s"><tspan fill="#8b8f98">own · pushed today</tspan></text>
 <text x="30.0" y="851.5" class="ln" style="animation-delay:2.70s"><tspan fill="#3a3d44">───────────────────────────────────────────────────────────────────────────────────────────────────────────────</tspan></text>
 <text x="30.0" y="875.5" class="ln" style="animation-delay:2.75s"><tspan fill="#8b8f98">t.me/HeartedWhyMe</tspan></text>
-<text x="900.0" y="875.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-24 05:14 msk</tspan></text>
+<text x="900.0" y="875.5" class="ln" text-anchor="end" style="animation-delay:2.75s"><tspan fill="#8b8f98">updated 2026-11-24 16:46 msk</tspan></text>
 </svg>
